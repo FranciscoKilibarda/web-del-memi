@@ -1,151 +1,399 @@
-/* ====== GENERAL ====== */
+/* ====== Variables y base (mobile-first) ====== */
+:root{
+  --rojo: #c71010;
+  --azul-oscuro: #1b1b53;
+  --blanco-trans: rgba(255,255,255,0.15);
+  --menu-radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f4f4; /* Fondo gris claro, cámbialo si quieres */
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
+  color: var(--azul-oscuro);
+  line-height: 1.4;
 }
+
+/* Encabezado */
 h1 {
-    color: #f4f4f4;
-    background: #1b1b53;
-    text-align: center;
-    margin: 0;   /* Elimina el espacio externo */
-    padding: 0;  /* Elimina el espacio interno */
+  margin: 0;
+  padding: 12px;
+  text-align: center;
+  background: var(--azul-oscuro);
+  color: #fff;
 }
 
-
-/* ====== BARRA SUPERIOR ====== */
+/* ====== Barra de navegación (mobile first) ======
+   Layout: Logo MEMI | Menú/Hamburguesa | Logo FCyT
+*/
 .barra {
-    position: relative; /* Para posicionar los logos dentro */
-    display: flex;
-    justify-content: center; /* Centra el menú horizontal */
-    align-items: center;
-    background: #c71010; /* Color de fondo de la barra, cámbialo a tu gusto */
-    padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centra el menú, los margins auto posicionan los logos */
+  padding: 8px 12px;
+  background: var(--rojo);
+  position: relative;
+  min-height: 50px; /* altura mínima para evitar colapso */
 }
 
-/* ----- LOGO MEMI IZQUIERDA ----- */
-.barra .logo.de.memi {
-    position: absolute;
-    left: 0px; /* Ajusta separación izquierda */
-    top: 8px; /* Ajusta separación superior */
+/* Contenedor para el logo MEMI (izquierda) */
+.logo-memi {
+  width: 40px;
+  height: auto;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.03);
+  padding: 2px;
+  flex-shrink: 0; /* no se encoge */
+  margin-right: auto; /* EMPUJA hacia la izquierda completamente */
 }
 
-/* ----- LOGO FCYT DERECHA ----- */
-.barra .logo.de.fcyt {
-    position: absolute;
-    right: 0px; /* Ajusta separación derecha */
-    top: 8px;
+/* Contenedor para el logo FCyT (derecha) */
+.logo-fcyt {
+  width: 40px;
+  height: auto;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.03);
+  padding: 2px;
+  flex-shrink: 0; /* no se encoge */
+  margin-left: auto; /* EMPUJA hacia la derecha completamente */
 }
 
-/* ====== MENÚ HORIZONTAL ====== */
+/* Contenedor del menú (centro) */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /* NO usar flex: 1 aquí, deja que ocupe solo lo que necesita */
+}
+
+/* Botón hamburguesa (visible en mobile) */
+.menu-toggle {
+  display: block;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(5px);
+}
+
+/* Efectos botón */
+.menu-toggle:hover { transform: scale(1.03); }
+.menu-toggle:active { transform: scale(0.98); }
+
+/* Menú principal - móvil: oculto/colapsado por defecto */
 .menu {
-    list-style: none;
-    display: flex;
-    gap: 20px; /* Espacio entre los elementos del menú */
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 8px;
+  display: none; /* oculto en mobile */
+  flex-direction: column;
+  width: 100%;
+  max-width: 280px; /* ancho máximo en mobile */
+  gap: 6px;
+  background: rgba(0,0,0,0.08);
+  border-radius: var(--menu-radius);
+  backdrop-filter: blur(6px);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
 }
 
+/* Clase para mostrar el menú */
+.menu.open { 
+  display: flex;
+}
+
+/* Estilos de enlaces del menú */
 .menu li {
-    position: relative; /* Para permitir submenús tipo persiana */
+  position: relative; /* necesario para submenús */
 }
 
-.menu a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 15px;
-    display: block;
-    transition: background 0.3s;
+.menu li a {
+  display: block;
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 6px;
+  margin: 2px 4px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-/* Efecto al pasar el mouse */
-.menu a:hover {
-    background: #c71010; /* Color al hacer hover */
-    border-radius: 5px;
+/* Hover / focus */
+.menu li a:hover,
+.menu li a:focus {
+  transform: translateX(6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  border-color: rgba(255,255,255,0.18);
 }
 
-/* ====== SELECT (tipo persiana) ====== */
-.menu select {
-    background: #c71010; /* Fondo del select */
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
+/* Efecto de onda al hacer click */
+.menu li a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+.menu li a:active::before {
+  width: 300px;
+  height: 300px;
 }
 
-.menu select:hover {
-    background: #950707;
+/* Brillo en movimiento */
+.menu li a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.6s;
+}
+.menu li a:hover::after { left: 120%; }
+
+/* ====== Submenu (siempre centrado bajo su padre) ====== */
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  min-width: 200px;
+  border-radius: 8px;
+  background: rgba(199,16,16,0.95);
+  backdrop-filter: blur(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform-origin: top center;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }
 
-/* ====== ÁREA DE AVISOS (CARRUSEL) ====== */
+/* Posicionamiento correcto del submenu */
+.submenu {
+  transform: translateX(-50%) translateY(-10px);
+}
+
+/* Submenu visible */
+.menu li:hover > .submenu,
+.menu li:focus-within > .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Submenu links */
+.submenu li {
+  position: static; /* resetea position para evitar conflictos */
+}
+
+.submenu li a {
+  padding: 10px 16px;
+  font-size: 14px;
+  margin: 2px 4px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.submenu li a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateX(0); /* resetea el efecto de translateX del menú principal */
+}
+
+/* ====== Ruleta / carrusel de avisos ====== */
 .ruleta {
-    max-width: 400px; /* Aumenté el ancho para que las imágenes se vean mejor */
-    margin: 40px auto; /* Centrado automático */
-    overflow: hidden; /* Oculta imágenes fuera del contenedor */
-    border: 3px solid #1b1b53;
-    border-radius: 10px;
-    background: #fff;
-    position: relative;
-    padding: 10px 0; /* Agregué padding para el texto "Avisos" */
-    text-align: center;
-    font-weight: bold;
-    color:#1b1b53;
+  max-width: 360px;
+  margin: 20px auto;
+  border: 3px solid var(--azul-oscuro);
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
-/* Lista de imágenes en fila */
+.ruleta-track { overflow: hidden; }
+
 .ruleta ul {
+  display: flex;
+  width: 400%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  animation: slide 16s infinite;
+}
+
+.ruleta li {
+  width: 25%;
+  flex-shrink: 0;
+  padding: 0 5px;
+}
+
+.ruleta img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+}
+
+/* Animación */
+@keyframes slide {
+  0%   { transform: translateX(0%); }
+  20%  { transform: translateX(0%); }
+  25%  { transform: translateX(-25%); }
+  45%  { transform: translateX(-25%); }
+  50%  { transform: translateX(-50%); }
+  70%  { transform: translateX(-50%); }
+  75%  { transform: translateX(-75%); }
+  95%  { transform: translateX(-75%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Links útiles */
+.links-utiles {
+  text-align: center;
+  margin: 12px 0;
+}
+
+/* ====== Breakpoints: tablet y desktop ====== */
+@media (min-width: 600px) and (max-width: 767px) {
+  .barra { 
+    padding: 10px 18px; 
+  }
+  
+  .logo-memi, .logo-fcyt { 
+    width: 50px; 
+  }
+  
+  .menu li a { 
+    padding: 12px 16px; 
+    font-size: 15px; 
+  }
+  
+  .ruleta { 
+    max-width: 500px; 
+  }
+}
+
+@media (min-width: 768px) {
+  .barra {
+    padding: 12px 25px;
+    justify-content: center; /* el menú se centra, los logos van a los extremos con margin auto */
+  }
+
+  /* Logos más grandes en desktop, pero dentro de la barra */
+  .logo-memi { 
+    width: 65px; 
+    margin-right: auto; /* se queda pegado a la izquierda */
+  }
+  
+  .logo-fcyt { 
+    width: 65px; 
+    margin-left: auto; /* se queda pegado a la derecha */
+  }
+
+  /* Contenedor del menú en desktop */
+  .menu-container {
+    position: static;
+    flex-direction: row;
+    max-width: none;
+    flex: 1; /* toma el espacio disponible */
+    justify-content: center; /* centra el menú */
+  }
+
+  /* Ocultar botón hamburguesa en desktop */
+  .menu-toggle { 
+    display: none; 
+  }
+
+  /* Mostrar menú como fila en desktop */
+  .menu {
     display: flex;
-    width: 400%; /* 4 imágenes = 400% */
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    width: auto;
+    max-width: none;
+    background: transparent;
     padding: 0;
     margin: 0;
-    list-style: none;
-    animation: slide 16s infinite; /* Animación de movimiento */
+    position: static;
+    transform: none;
+  }
+
+  /* Estética de botones en desktop */
+  .menu li a {
+    margin: 0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.22));
+    backdrop-filter: blur(6px);
+    border: 2px solid rgba(255,255,255,0.18);
+    font-size: 14px;
+  }
+
+  .menu li a:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, rgba(255,255,255,0.28), rgba(255,255,255,0.4));
+  }
+
+  /* Submenu en desktop: mantiene el centrado bajo el botón padre */
+  .submenu {
+    min-width: 200px;
+    background: rgba(199,16,16,0.95);
+    top: calc(100% + 10px);
+  }
+  
+  .submenu li a { 
+    background: rgba(255,255,255,0.1); 
+    color: white; 
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+  
+  .submenu li a:hover {
+    background: rgba(255,255,255,0.2);
+  }
 }
 
-/* Cada imagen ocupa 25% del ancho total (100% / 4 imágenes) */
-.ruleta li {
-    width: 25%;
-    flex-shrink: 0;
-    padding: 0 5px; /* Pequeño padding entre imágenes */
-}
-
-/* Animación para que las imágenes se desplacen en bucle */
-@keyframes slide {
-    0%   { transform: translateX(0%); }
-    20%  { transform: translateX(0%); }
-    25%  { transform: translateX(-25%); }
-    45%  { transform: translateX(-25%); }
-    50%  { transform: translateX(-50%); }
-    70%  { transform: translateX(-50%); }
-    75%  { transform: translateX(-75%); }
-    95%  { transform: translateX(-75%); }
-    100% { transform: translateX(0%); }
-}
-
-/* Ajuste a las imágenes dentro del carrusel */
-.ruleta img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 5px; /* Agregué bordes redondeados a las imágenes */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil */
-}
-
-/* ====== ENLACES INFERIORES ====== */
-body > a {
-    display: block;
-    text-align: center;
-    color: #333;
-    margin: 10px 0;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-body > a:hover {
-    color: #0077cc; /* Color al pasar el mouse */
-}
-a{
-    color: #1b1b53;
+/* ====== Responsive adicional para pantallas muy pequeñas ====== */
+@media (max-width: 360px) {
+  .barra {
+    padding: 8px 10px;
+  }
+  
+  .logo-memi, .logo-fcyt {
+    width: 40px;
+  }
+  
+  .menu-toggle {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
 }

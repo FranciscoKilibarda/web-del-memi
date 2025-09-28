@@ -1,47 +1,58 @@
+<!--Para el html use conocimientos que yo ya tenia al igual que para los links y las palabras use referencias de 
+ejercicios que ya tenia las imagenes de comunicados los saque de https://www.facebook.com/profile.php?id=100063768747099 en cuanto 
+al logo del memi lo saque del documento ya mandado y en cuanto al logo de la facultad lo saque de git GitHub – umss/logos-->>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centro Memi</title>
+  <link rel="stylesheet" href="css/disenio.css" />
 </head>
-<link rel="stylesheet" href="css/disenio.css">
 <body>
+  <header>
     <h1>Centro Memi</h1>
-    <nav class="barra">
-        <div class="logo de memi"><img src="imagenes/Logo del Centro MEMI .png" width="90" height="90" alt=""></div>
-        <div class="logo de fcyt"><img src="imagenes/Logo de la FCyT .png" width="80" height="80" alt=""></div>
-        <ul class="menu">
-            <li><a href="#">Misión Visión Valores</a></li>
-            <li><a href="#">Acerca de</a>
-                <select name="Informacion" >
-                <option value="1">Antecedentes</option>
-                <option value="2">Datos historicos</option>
-                <option value="3">Autoridades</option>
-            </select></li>
-            <li><a href="#">Cursos / Seminarios</a></li>
-            <li><a href="#">Publicaciones</a></li>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">ICPC UMSS</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
+    <nav class="barra" aria-label="Menú principal">
+      <img class="logo-memi" src="imagenes/Logo del Centro MEMI .png" alt="Logo Centro MEMI" width="90" height="90">
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">☰</button>
+      <ul id="main-menu" class="menu">
+        <li><a href="#">Misión Visión Valores</a></li>
+        <li>
+          <a href="#">Acerca de</a>
+          <ul class="submenu">
+            <li><a href="#">Antecedentes</a></li>
+            <li><a href="#">Datos históricos</a></li>
+            <li><a href="#">Autoridades</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Cursos / Seminarios</a></li>
+        <li><a href="#">Publicaciones</a></li>
+        <li><a href="#">Servicios</a></li>
+        <li><a href="#">ICPC UMSS</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+      <img class="logo-fcyt" src="imagenes/Logo de la FCyT .png" alt="Logo FCyT UMSS" width="80" height="80">
     </nav>
-  
-    <div class="ruleta">
-        Avisos
-  <ul>
-    <li><img src="imagenes/comunicado.jpg" width="100" height="100" alt=""></li>
-    <li><img src="imagenes/comunicado 2.jpg" width="100" height="100" alt=""></li>
-    <li><img src="imagenes/comunicado 3.jpg" width="100" height="100" alt=""></li>
-    <li><img src="imagenes/comunicado 4.jpg" width="100" height="100" alt=""></li>
-  </ul>
-  </div>
+  </header>
 
+  <main>
+    <section class="ruleta" aria-label="Avisos">
+      <h2>Avisos</h2>
+      <div class="ruleta-track">
+        <ul>
+          <li><img src="imagenes/comunicado.jpg" alt="Comunicado 1"></li>
+          <li><img src="imagenes/comunicado 2.jpg" alt="Comunicado 2"></li>
+          <li><img src="imagenes/comunicado 3.jpg" alt="Comunicado 3"></li>
+          <li><img src="imagenes/comunicado 4.jpg" alt="Comunicado 4"></li>
+        </ul>
+      </div>
+    </section>
 
-            <a href="https://www.facebook.com/fcyt.umss.edu">facebook</a> <br>
-            <a href="http://www.fcyt.umss.edu.bo/">Web FCyT</a> <br>
-            <a href="mailto:webmaster@fcyt.umss.edu.bo">correo electrónico</a> 
-        
-     
+    <section class="links-utiles">
+      <a href="https://www.facebook.com/fcyt.umss.edu">facebook</a><br>
+      <a href="http://www.fcyt.umss.edu.bo/">Web FCyT</a><br>
+      <a href="mailto:webmaster@fcyt.umss.edu.bo">correo electrónico</a>
+    </section>
+  </main>
 </body>
 </html>
